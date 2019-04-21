@@ -17,13 +17,18 @@ In this Lab, you'll crack open the IDE to secure a SaaS platform built on a Reac
 * Configure the AWS CLI with the IAM user's access keys, your default region e.g. **_ap-southeast-2_** and **_json_** as default output. <a href="https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html" target="_blank" style="width:10%;height:auto;">Link</a>
 * Install/Update the AWS SAM CLI <a href="https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html" target="_blank">Link</a>
 * Three web browsers installed e.g. Google Chrome, Mozilla Firefox, and Safari or Edge
-### Lab Setup (for linux/mac users)
-* Navigate to desktop folder and clone repo: 
+### Lab Setup (for linux/mac/cloud9 users)
+* If you don't have an **_environment_** directory at the root, go create one (The Cloud 9 IDE includes this directory, but if you're using other linux or mac, you might need to create it)
 ```shell
 cd ~
+mkdir environment
+```
+* Navigate to desktop folder and clone repo: 
+```shell
+cd ~/environment
 git clone https://github.com/ge8/docaas-summit
 ```
-* Open the folder **_~/docaas-summit_** in VS Code (or your IDE of choice)
+* Open the folder **_~/environment/docaas-summit_** in VS Code (or your IDE of choice)
 * Open **_load-variables.sh_** and set **_SAMBUCKET_** (S3 bucket name for deployment created above), **_REGION_** (the same default region configured on the AWS CLI e.g. **_ap-southeast-2_**).
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/1.png" width="50%">
 
@@ -32,9 +37,9 @@ git clone https://github.com/ge8/docaas-summit
 2. **_AcmCertificateArn_** as the ARN of the ACM Certificate ARN created above.
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/2.png" width="80%">
 
-* From the ~/docaas-summit directory, deploy the backend & app. This might take from 10 to 40 mins because Cloudfront takes that much (Go grab a cup of tea/coffee or play a Fortnite game while it deploys)
+* From the ~/environment/docaas-summit directory, deploy the backend & app. This might take from 10 to 40 mins because Cloudfront takes that much (Go grab a cup of tea/coffee or play a Fortnite game while it deploys)
 ```shell
-cd ~/docaas-summit
+cd ~/environment/docaas-summit
 ./deploy-template.sh 
 ./deploy-app.sh
 ```
@@ -148,7 +153,7 @@ Additionally, we'll use the context created by the Lambda Authorizer to embed al
 
 6. Now we're ready to deploy all changes! This should take about 1 minute.
 ```shell
-cd ~/docaas-summit
+cd ~/environment/docaas-summit
 ./update-template.yaml
 ```
 
@@ -197,7 +202,7 @@ Now our Lambdas will be reading and writing items at **_decks-master_** and **_s
 
 7. Now we're ready to deploy all changes! This should take about 1 minute.
 ```shell
-cd ~/docaas-summit
+cd ~/environment/docaas-summit
 ./update-template.yaml
 ```
 
@@ -235,21 +240,21 @@ git checkout demo2
 ```
 To deploy either of these solutions, simply run the update-template.sh command.
 ```
-cd ~/docaas-summit
+cd ~/environment/docaas-summit
 ./update-template.sh
 ```
 
 ### Want to experiment with the react app?
 To deploy the app, run the deploy-app.sh command.
 ```
-cd ~/docaas-summit
+cd ~/environment/docaas-summit
 ./deploy-app.sh
 ```
 
 ### How to reset the lab
 You can reset the lab at any time by running the following command:
 ```
-cd ~/docaas-summit
+cd ~/environment/docaas-summit
 git reset --hard HEAD && git clean --force -d
 git checkout master
 ./reset-lab.sh
