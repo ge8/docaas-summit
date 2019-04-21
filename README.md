@@ -34,6 +34,7 @@ git clone https://github.com/ge8/docaas-summit
 
 * From the ~/Desktop/docaas-summit directory, deploy the backend & app. This might take from 10 to 40 mins because Cloudfront takes that much (Go grab a cup of tea/coffee or play a Fortnite game while it deploys)
 ```shell
+cd ~/Desktop/docaas-summit
 ./deploy-template.sh 
 ./deploy-app.sh
 ```
@@ -147,7 +148,7 @@ Additionally, we'll use the context created by the Lambda Authorizer to embed al
 
 6. Now we're ready to deploy all changes! This should take about 1 minute.
 ```shell
-cd ~/Desktop
+cd ~/Desktop/docaas-summit
 ./update-template.yaml
 ```
 
@@ -196,7 +197,7 @@ Now our Lambdas will be reading and writing items at **_decks-master_** and **_s
 
 7. Now we're ready to deploy all changes! This should take about 1 minute.
 ```shell
-cd ~/Desktop
+cd ~/Desktop/docaas-summit
 ./update-template.yaml
 ```
 
@@ -234,21 +235,21 @@ git checkout demo2
 ```
 To deploy either of these solutions, simply run the update-template.sh command.
 ```
-cd ~/Desktop
+cd ~/Desktop/docaas-summit
 ./update-template.sh
 ```
 
 ### Want to experiment with the react app?
 To deploy the app, run the deploy-app.sh command.
 ```
-cd ~/Desktop
+cd ~/Desktop/docaas-summit
 ./deploy-app.sh
 ```
 
 ### How to reset the lab
 You can reset the lab at any time by running the following command:
 ```
-cd ~/Desktop
+cd ~/Desktop/docaas-summit
 git reset --hard HEAD && git clean --force -d
 git checkout master
 ./reset-lab.sh
