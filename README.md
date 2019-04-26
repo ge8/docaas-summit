@@ -46,8 +46,9 @@ cd ~/environment/docaas-summit
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/3.png" width="50%">
 
 # LABS 
-### Lab 0: Check the app out
-Deck Of Cards as a Service is an online service that allows users to create virtual decks of cards, shuffle decks, deal 2-card games, etc. We have three user plans:
+### Lab 0: Check the app out at the **_DomainName_** you configured before
+##### DoCaaS
+**Deck Of Cards as a Service**  is an online service that allows users to create virtual decks of cards, shuffle decks, deal 2-card games, etc. We have three user plans:
 
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/plans.png" width="30%">
 
@@ -59,9 +60,9 @@ Deck Of Cards as a Service is an online service that allows users to create virt
 
 2. With some users, **_create_** and **_get_** a couple of decks. You need to type a deck name or number in the text field e.g. "111". 
 
-Note: the first time you execute an AWS Lambda function, you may experience a couple of seconds of delay - this is called a "cold start". This only occurs the first time you use a Lambda function after creation, update or after a long period without use. For this app, a single "create" may cold-start up to 3 lambda functions, so you might need to way up to 10 seconds the first time to execute these functions. This lab doesn't intend to resolve cold starts. This is a great advanced re:Invent session that explains cold-starts and how to optimise your set up [https://www.youtube.com/watch?v=oQFORsso2go]
+Note: you might experience slow APIs the first time to hit each API after a new deploy. This is due to Lambda cold starts <a href="https://github.com/ge8/docaas-summit#My-deployment-seems-successful-but-now-the-app-is-slow
+" target="_blank">For more info: jump to the "My deployment seems successful but now the app is slow" FAQ</a>
 
-Some of the application functions, hit multiple lambdas in sequence, if they're all cold, you might expeci
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/create111.png" width="45%"> <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/get111.png" width="44%">
 
 3. With some users, play a few **_games_**. Note that this 2-card game with perfectly ordered decks, makes no sense.
@@ -88,7 +89,7 @@ This flexibility makes Open ID Connect identity providers like Amazon Cognito an
 
 On Lab 1, we will use the **_custom:plan_** found in the JWT token to control access to API resources.
 
-7. Check out the ReactJS source code found in the **_frontend_** directory.
+7. Open your IDE (AWS Cloud9, VS Code or other) Check out the ReactJS source code found in the **_frontend_** directory.
 
 8. Check out the backend source code found in the **_backend_** directory. 
 * Note there are 9 AWS Lambda functions written in NodeJS - 7 of those are part of the microservices that serve our app, plus 2 Lambda functions for CORS and Lambda Authorizer (not in use yet - you'll use it in Lab 1)
@@ -158,6 +159,8 @@ cd ~/environment/docaas-summit
 ```
 
 7. Check out the app and confirm everything is working.
+Note: you might experience slow APIs the first time to hit each API after a new deploy. This is due to Lambda cold starts <a href="https://github.com/ge8/docaas-summit#My-deployment-seems-successful-but-now-the-app-is-slow
+" target="_blank">For more info: jump to the "My deployment seems successful but now the app is slow" FAQ</a>
 
 8. (Optional) use an REST client like Insomnia [https://insomnia.rest/] to see how the silver1 and the bronze1 users (using custom:plan=silver and custom:plan=bronze respectively) are now blocked from accessing the **_Cut_** API resouce thanks to the fine grained access control we implemented.
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/insomnia-2.png" width="70%">
@@ -213,7 +216,11 @@ You'll notice we're using the SAM CLI <a href="https://docs.aws.amazon.com/serve
 One thing that the SAM CLI doesn't do yet with these two commands (feature request) is updating the API stage, so our **_./update-template.sh_** script does precicely that at the end of the script.
 
 9. Play with the app in the browser. Make sure to at least **_create_** a deck and play a **_game_**. Notice the notification after creating the deck that now includes a much longer name.
+Note: you might experience slow APIs the first time to hit each API after a new deploy. This is due to Lambda cold starts <a href="https://github.com/ge8/docaas-summit#My-deployment-seems-successful-but-now-the-app-is-slow
+" target="_blank">For more info: jump to the "My deployment seems successful but now the app is slow" FAQ</a>
+
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/long-name.png" width="70%">
+
 
 10. Go to the AWS Console > DynamoDB > Tables and check out the recently created items in both the **_decks-master_** and **_scores-master_** tables. You'll notice on the partition key **_id_** is much longer because it now includes the user's Cognito Identity ID prepended.
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/table-end.png" width="70%">
@@ -225,6 +232,7 @@ Congratulations! You've significantly improved the security of our SaaS app by p
 
 <img src="https://github.com/ge8/docaas-summit/raw/master/frontend/src/images/AWS-logo.png" width="20%">
 
+# FAQS 
 ### Lab Solutions
 If you get stuck or want to see or deploy the lab answers, we have those pre-configured in separate branches.
 
@@ -240,22 +248,30 @@ git checkout demo2
 ```
 To deploy either of these solutions, simply run the update-template.sh command.
 ```
-cd ~/environment/docaas-summit
+cd ~/environment/docaas-devlab
 ./update-template.sh
 ```
 
 ### Want to experiment with the react app?
 To deploy the app, run the deploy-app.sh command.
 ```
-cd ~/environment/docaas-summit
+cd ~/environment/docaas-devlab
 ./deploy-app.sh
 ```
 
 ### How to reset the lab
 You can reset the lab at any time by running the following command:
 ```
-cd ~/environment/docaas-summit
+cd ~/environment/docaas-devlab
 git reset --hard HEAD && git clean --force -d
 git checkout master
 ./reset-lab.sh
 ```
+
+### My deployment seems successful but now the app is slow
+The first time you execute an AWS Lambda function, you may experience a couple of seconds of delay - this is called a "cold start". This only occurs the first time you use a Lambda function after creation, update or after a long period without use. For this app, a single "create" may cold-start up to 3 lambda functions, so you might need to way up to 10 seconds the first time to execute these functions. This lab doesn't intend to resolve cold starts. This is a great advanced re:Invent session that explains cold-starts and how to optimise your set up [https://www.youtube.com/watch?v=oQFORsso2go].
+
+Some of the application APIs hit multiple lambdas in sequence, if they're all cold for example after a new deployment, you might experience up to 12 seconds of delay the first time you hit an API. After that first time, the response should be quick.
+
+### How do I log out of the app?
+To log out you can close the browser. Make sure you're using incognito browser sessions and that you close all incognito browser sessions from the same browser (Chrome, Firefox). It would be better to have a sign out button but we haven't implemented it yet.
