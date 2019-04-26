@@ -155,7 +155,7 @@ Additionally, we'll use the context created by the Lambda Authorizer to embed al
 6. Now we're ready to deploy all changes! This should take about 1 minute.
 ```shell
 cd ~/environment/docaas-summit
-./update-template.yaml
+./update-template.sh
 ```
 
 7. Check out the app and confirm everything is working.
@@ -206,7 +206,7 @@ Now our Lambdas will be reading and writing items at **_decks-master_** and **_s
 7. Now we're ready to deploy all changes! This should take about 1 minute.
 ```shell
 cd ~/environment/docaas-summit
-./update-template.yaml
+./update-template.sh
 ```
 
 8. (Optional) Check out what's inside the **_./update-template.sh_** script found in the project root. 
